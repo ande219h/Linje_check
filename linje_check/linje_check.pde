@@ -1,7 +1,7 @@
 Input valgteTal=new Input();
 void setup() {
   size(500, 500);
-  background(51,167,14);
+background(0);
 }
 
 void draw() {
