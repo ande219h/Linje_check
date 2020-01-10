@@ -20,7 +20,7 @@ class Input {
     rect(placX, placY, W, H);
 
     //Tekst der angiver format på inputtekst
-    fill(255);
+    fill(0);
     textSize(12);
     textAlign(LEFT, TOP);
     text("Input skal være: a, x, b, y. Tryk på r for at lave et nyt input", placX, placY+H+10);
