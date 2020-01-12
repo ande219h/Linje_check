@@ -1,12 +1,13 @@
 class Input {
   //variabler
   StringBuffer tekstFelt=new StringBuffer();
+  String[] tekst;
   String answer="";
 
   float a, x, b, y;
   float placX=10, placY=10, W=200, H=50;
 
-  boolean korCheck=true;
+  boolean korCheck=false;
 
   //constructor
   Input() {
@@ -23,41 +24,42 @@ class Input {
     fill(255);
     textSize(12);
     textAlign(LEFT, TOP);
-    text("Input skal være: a, x, b, y. Tryk på r for at lave et nyt input", placX, placY+H+10);
+    text("Input skal være: a, x, b, y", placX, placY+H+10);
 
     //visning af inputteksten
     fill(0);
     textSize(32);
     textAlign(LEFT);
     text(tekstFelt.toString(), placX+5, placY+32);
+
+    //Output tegnes
+    textAlign(CENTER);
+    fill(255);
+    textSize(50);
+    text(answer, width/2, height/2);
   }
 
   //metode der tilføjer tegn til stringBuffer, sletter eller tjekker punktet og linjen ved tryk på ENTER
   void tast() {
     if (key==BACKSPACE && tekstFelt.length() > 0) {
       tekstFelt.deleteCharAt(tekstFelt.length()-1);
-    } else if (key==ENTER) {
-
-      //kalder metoden der konverterer inputett til et tal
-      konverter();
-
-      //hvis der er NumberFormatException kører denne del af koden ikke
-      if (korCheck) {
-        check();
-      }
-      //korCheck sættes til true igen
-      korCheck=true;
     } else {
       tekstFelt.append(key);
+    }
+
+    //når inputlængden er   7 eller større, sættes korCheck til true, da 7 er det laveste inpu
+    if (tekstFelt.length()>=7) {
+      //korCheck sættes til true
+      korCheck=true;
     }
   }
 
   void konverter() {
     //der laves en string-array der indeholder inputtet, hvor de forskellige pladser er en ny variabel 
-    String[] tekst=split(tekstFelt.toString(), ",");
+    tekst=split(tekstFelt.toString(), ",");
 
     /*Kode der konverterer de fire første pladser i arrayen til et float som tilskrives en variabel
-     der laves try catch hvis der forekommer NumberFormatException*/
+     der laves try-catch hvis der forekommer NumberFormatException*/
     try {
       a=Float.parseFloat(tekst[0]);
       x=Float.parseFloat(tekst[1]);
@@ -65,18 +67,19 @@ class Input {
       y=Float.parseFloat(tekst[3]);
     }
     catch (Exception NumberFormatException) {
-      //boolean udtrykket der styrer om der tjekkes ændres til false og der udskrives tekst i konsol
+
+      //korCheck ændres til false, således vil koden der konverterer og checker ikke køre
       korCheck=false;
-      println("forkert format, prøv igen");
     }
   }
 
   //metode der check om punktet ligger over, under eller på linjern
   void check( ) {
+
     //der laves en lokal variabel der tilskrives funktionsværdien
     float svar=a*x+b;
 
-    //der tjekkes hvad der skal skrives
+    //punktets placering ift. linjen tjekkes
     if (y<svar) {
       answer="UNDER";
     } else if (y>svar) {
@@ -84,11 +87,5 @@ class Input {
     } else {
       answer="LINJE";
     }
-
-    //Output tegnes
-    textAlign(CENTER);
-    fill(255);
-    textSize(50);
-    text(answer, width/2, height/2);
   }
 }
