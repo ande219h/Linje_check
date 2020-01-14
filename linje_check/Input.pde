@@ -43,14 +43,12 @@ class Input {
   void tast() {
     if (key==BACKSPACE && tekstFelt.length() > 0) {
       tekstFelt.deleteCharAt(tekstFelt.length()-1);
-    } else {
-      tekstFelt.append(key);
-    }
+    } else if (key==ENTER) {
 
-    //når inputlængden er   7 eller større, sættes korCheck til true, da 7 er det laveste inpu
-    if (tekstFelt.length()>=7) {
       //korCheck sættes til true
       korCheck=true;
+    } else {
+      tekstFelt.append(key);
     }
   }
 
