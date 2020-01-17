@@ -32,11 +32,13 @@ class Input {
     textAlign(LEFT);
     text(tekstFelt.toString(), placX+5, placY+32);
 
-    //Output tegnes
+    //Output tegnes hvis korCheck er sand
+    if(korCheck){
     textAlign(CENTER);
     fill(255);
     textSize(50);
     text(answer, width/2, height/2);
+    }
   }
 
   //metode der tilføjer tegn til stringBuffer, sletter eller tjekker punktet og linjen ved tryk på ENTER
@@ -65,6 +67,7 @@ class Input {
       y=Float.parseFloat(tekst[3]);
     }
     catch (Exception NumberFormatException) {
+      println("Forkert format, prøv igen");
 
       //korCheck ændres til false, således vil koden der konverterer og checker ikke køre
       korCheck=false;
